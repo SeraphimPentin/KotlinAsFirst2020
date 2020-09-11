@@ -27,6 +27,7 @@ fun sqr(x: Double) = x * x
  *
  * Вычисление дискриминанта квадратного уравнения
  */
+
 fun discriminant(a: Double, b: Double, c: Double) = sqr(b) - 4 * a * c
 
 /**
@@ -76,9 +77,11 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
  *
  * Пользователь задает длину отрезка в саженях, аршинах и вершках (например, 8 саженей 2 аршина 11 вершков).
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
- * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
+ * 1 сажень = ш3 арина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = TODO()
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
+    return ((sagenes * 48 + arshins * 16 + vershoks) * 4.445) / 100.0
+}
 
 /**
  * Тривиальная (1 балл)
