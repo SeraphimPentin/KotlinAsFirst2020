@@ -66,11 +66,9 @@ fun main() {
  * Пользователь задает время в часах, минутах и секундах, например, 8:20:35.
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
-fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
+fun seconds(hours: Int, minutes: Int, seconds: Int): Int = seconds + minutes * 60 + hours * 3600
 
-    return seconds + minutes * 60 + hours * 3600
 
-}
 
 /**
  * Тривиальная (1 балл)
@@ -109,9 +107,8 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int {
-    return ((number / 10) / 10) % 10
-}
+fun thirdDigit(number: Int): Int = (number / 100) % 10
+
 
 /**
  * Простая (2 балла)
@@ -121,10 +118,10 @@ fun thirdDigit(number: Int): Int {
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
-    val timemin = ((hoursArrive * 60) + minutesArrive) - ((hoursDepart * 60) + minutesDepart)
-    return timemin
-
+    return ((hoursArrive * 60) + minutesArrive) - ((hoursDepart * 60) + minutesDepart)
 }
+
+
 
 /**
  * Простая (2 балла)
