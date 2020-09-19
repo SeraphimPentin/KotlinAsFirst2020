@@ -3,8 +3,11 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
+
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
@@ -68,7 +71,17 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+    if ((age % 100) >= 11 && (age % 100) <= 19) {
+        return "$age лет"
+    }
+    return when (age % 10) {
+        1 -> "$age год"
+        2, 3, 4 -> "$age года"
+        5, 6, 7, 8, 9, 0 -> "$age лет"
+        else -> "$age number is out of the specified range"
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -81,7 +94,18 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val shalf = ((v1 * t1) + (v2 * t2) + (v3 * t3)) / 2.0
+    if ((t1 * v1) >= shalf || shalf >= ((t1 * v1) + (t2 * v2))) {
+        return if ((t1 * v1) + (t2 * v2) < shalf && shalf < (t1 * v1) + (t2 * v2) + (t3 * v3)) {
+            t1 + t2 + ((shalf - ((t1 * v1) + (t2 * v2))) / v3)
+        } else {
+            shalf / v1
+        }
+    }
+    return t1 + ((shalf - (v1 * t1)) / v2)
+}
+
 
 /**
  * Простая (2 балла)
@@ -96,7 +120,14 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int {
+    if ((kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2)) return 3
+    if (kingX == rookX1 || kingY == rookY1) return 1
+    return if (kingX == rookX2 || kingY == rookY2) 2
+    else {
+        0
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -112,7 +143,15 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    if ((kingX == rookX) || (kingY == rookY) && (abs(kingX - bishopX)) == (abs(kingY - bishopY))) return 3
+    if ((kingX == rookX) || (kingY == rookY)) return 1
+    return if ((abs(kingX - bishopX)) == (abs(kingY - bishopY))) 2
+    else {
+        0
+    }
+
+}
 
 /**
  * Простая (2 балла)
@@ -122,7 +161,29 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val cosa = (sqr(b) + sqr(c) - sqr(a)) / 2 * b * c
+    val cosb = (sqr(a) + sqr(c) - sqr(b)) / 2 * a * c
+    val cosc = (sqr(b) + sqr(a) - sqr(c)) / 2 * b * a
+
+    if ((a + b <= c) || (a + c <= b) || (b + c <= a)) return -1
+    if ((sqr(a) == sqr(b) + sqr(c)) || (sqr(b) == sqr(a) + sqr(c)) || (sqr(c) == sqr(b) + sqr(a))) return 1
+    return if ((cosa > 0) && (cosb > 0) && (cosc > 0)) return 0
+    else {
+        2
+    }
+
+}
+/* if (c > a) && (a > b) {
+     if ((sqr(c) == sqr(b) + sqr(a))) return 1
+     if ((sqr(c) < sqr(b) + sqr(a))) return 0
+     if ((sqr(c) > sqr(b) + sqr(a))) return 2
+     if ((sqr(a) == sqr(b) + sqr(c)) || (sqr(b) == sqr(a) + sqr(c)) || (sqr(c) == sqr(b) + sqr(a))) return 1
+        if ((sqr(a) < sqr(b) + sqr(c)) || (sqr(b) < sqr(a) + sqr(c)) || (sqr(c) < sqr(b) + sqr(a))) return 0
+        if ((sqr(a) > sqr(b) + sqr(c)) || (sqr(b) > sqr(a) + sqr(c)) || (sqr(c) > sqr(b) + sqr(a))) return 2
+        }
+ return -1 */
+
 
 /**
  * Средняя (3 балла)
@@ -132,4 +193,13 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    return when {
+        ((a > c) && (d > b)) -> (b - a) // 3
+        ((a > c) && (b > d) && (d > a)) -> (d - a)  // 5
+        ((c > a) && (b > c) && (d > b)) -> (b - c) // 2
+        (b == c) || ((a == b) && (d > b)) -> 0 // 4
+        ((b > d) && (c > a)) -> (d - c) // 3.1
+        else -> -1 // 1
+    }
+}
