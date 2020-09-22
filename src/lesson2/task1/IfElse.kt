@@ -174,16 +174,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     }
 
 }
-/* if (c > a) && (a > b) {
-     if ((sqr(c) == sqr(b) + sqr(a))) return 1
-     if ((sqr(c) < sqr(b) + sqr(a))) return 0
-     if ((sqr(c) > sqr(b) + sqr(a))) return 2
-     if ((sqr(a) == sqr(b) + sqr(c)) || (sqr(b) == sqr(a) + sqr(c)) || (sqr(c) == sqr(b) + sqr(a))) return 1
-        if ((sqr(a) < sqr(b) + sqr(c)) || (sqr(b) < sqr(a) + sqr(c)) || (sqr(c) < sqr(b) + sqr(a))) return 0
-        if ((sqr(a) > sqr(b) + sqr(c)) || (sqr(b) > sqr(a) + sqr(c)) || (sqr(c) > sqr(b) + sqr(a))) return 2
-        }
- return -1 */
-
 
 /**
  * Средняя (3 балла)
