@@ -161,10 +161,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     return when {
         a + b <= c || a + c <= b || b + c <= a -> -1
         sqr(a) == sqr(b) + sqr(c) || sqr(b) == sqr(a) + sqr(c) || sqr(c) == sqr(b) + sqr(a) -> 1
-        ((cosa > 0) && (cosb > 0) && (cosc > 0)) -> 0
+        (cosa > 0 && cosb > 0 && cosc > 0) -> 0
         else -> 2
     }
-
 }
 
 /**
