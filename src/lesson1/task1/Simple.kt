@@ -75,7 +75,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int) = seconds + minutes * 60 + h
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = ((sagenes * 48 + arshins * 16 + vershoks) * 4.445) / 100.0
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
+    ((sagenes * 48 + arshins * 16 + vershoks) * 4.445) / 100.0
 
 /**
  * Тривиальная (1 балл)
@@ -83,7 +84,8 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = ((sagene
  * Пользователь задает угол в градусах, минутах и секундах (например, 36 градусов 14 минут 35 секунд).
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
-fun angleInRadian(deg: Int, min: Int, sec: Int): Double  = PI * (deg + min / 60.0 + sec / 3600.0) / 180.0
+fun angleInRadian(deg: Int, min: Int, sec: Int): Double =
+    PI * (deg + min / 60.0 + sec / 3600.0) / 180.0
 
 /**
  * Тривиальная (1 балл)
@@ -108,7 +110,8 @@ fun thirdDigit(number: Int): Int = (number / 100) % 10
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = (hoursArrive * 60 + minutesArrive) - (hoursDepart * 60 + minutesDepart)
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int =
+    (hoursArrive * 60 + minutesArrive) - (hoursDepart * 60 + minutesDepart)
 
 /**
  * Простая (2 балла)
@@ -125,9 +128,5 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int {
-    val digit1 = number % 10
-    val digit2 = (number % 100) / 10
-    val digit3 = number / 100
-    return digit1 * 100 + digit2 * 10 + digit3
-}
+fun numberRevert(number: Int): Int = (number % 10) * 100 + (number % 100) / 10 * 10 + number / 100
+

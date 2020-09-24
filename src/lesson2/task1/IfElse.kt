@@ -79,7 +79,7 @@ fun ageDescription(age: Int): String {
         1 -> "$age год"
         2, 3, 4 -> "$age года"
         5, 6, 7, 8, 9, 0 -> "$age лет"
-        else -> "$age number is out of the specified range"
+        else -> ""
     }
 }
 
@@ -96,13 +96,13 @@ fun timeForHalfWay(
     t3: Double, v3: Double
 ): Double {
     val shalf = (v1 * t1 + v2 * t2 + v3 * t3) / 2.0
-    when {
+    return when {
         (t1 * v1) >= shalf || shalf >= (t1 * v1 + t2 * v2) -> {
-            return if ((t1 * v1 + t2 * v2) < shalf && shalf < (t1 * v1 + t2 * v2 + t3 * v3)) {
+             if (t1 * v1 + t2 * v2 < shalf && shalf < (t1 * v1 + t2 * v2 + t3 * v3)) {
                 t1 + t2 + ((shalf - (t1 * v1 + t2 * v2)) / v3)
             } else shalf / v1
         }
-        else -> return t1 + ((shalf - v1 * t1) / v2)
+        else -> t1 + ((shalf - v1 * t1) / v2)
     }
 }
 
@@ -141,7 +141,7 @@ fun rookOrBishopThreatens(
     bishopX: Int, bishopY: Int
 ): Int {
     if ((kingX == rookX || kingY == rookY) && abs(kingX - bishopX) == abs(kingY - bishopY)) return 3
-    if ((kingX == rookX) || (kingY == rookY)) return 1
+    if (kingX == rookX || kingY == rookY) return 1
     return if ((abs(kingX - bishopX)) == (abs(kingY - bishopY))) 2 else 0
 }
 
@@ -174,13 +174,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return when {
-        a > c && d > b -> b - a
-        a > c && b > d && d > a -> d - a
-        c > a && b > c && d > b -> b - c
-        b == c || a == b && d > b -> 0
-        b > d && c > a -> d - c
-        else -> -1
-    }
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
+    a > c && d > b -> b - a
+    a > c && b > d && d > a -> d - a
+    c > a && b > c && d > b -> b - c
+    b == c || a == b && d > b -> 0
+    b > d && c > a -> d - c
+    else -> -1
 }
+
