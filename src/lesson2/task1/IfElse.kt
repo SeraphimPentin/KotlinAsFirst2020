@@ -98,7 +98,7 @@ fun timeForHalfWay(
     val shalf = (v1 * t1 + v2 * t2 + v3 * t3) / 2.0
     return when {
         (t1 * v1) >= shalf || shalf >= (t1 * v1 + t2 * v2) -> {
-             if (t1 * v1 + t2 * v2 < shalf && shalf < (t1 * v1 + t2 * v2 + t3 * v3)) {
+            if (t1 * v1 + t2 * v2 < shalf && shalf < (t1 * v1 + t2 * v2 + t3 * v3)) {
                 t1 + t2 + ((shalf - (t1 * v1 + t2 * v2)) / v3)
             } else shalf / v1
         }
@@ -142,7 +142,7 @@ fun rookOrBishopThreatens(
 ): Int {
     if ((kingX == rookX || kingY == rookY) && abs(kingX - bishopX) == abs(kingY - bishopY)) return 3
     if (kingX == rookX || kingY == rookY) return 1
-    return if ((abs(kingX - bishopX)) == (abs(kingY - bishopY))) 2 else 0
+    return if (abs(kingX - bishopX) == (abs(kingY - bishopY))) 2 else 0
 }
 
 /**
