@@ -264,7 +264,18 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var num = 1
+    var count = 1
+    while (count < n) {
+        num += 1
+        count = digitNumber(num * num)
+    }
+    var out = sqr(num)
+    for (m in 1..count - n)
+        out /= 10
+    return out % 10
+}
 
 /**
  * Сложная (5 баллов)
