@@ -96,12 +96,9 @@ fun timeForHalfWay(
 ): Double {
     val shalf = (v1 * t1 + v2 * t2 + v3 * t3) / 2.0
     return when {
-        t1 * v1 >= shalf || shalf >= t1 * v1 + t2 * v2 -> {
-            if (t1 * v1 + t2 * v2 < shalf && shalf < (t1 * v1 + t2 * v2 + t3 * v3)) {
-                t1 + t2 + (shalf - (t1 * v1 + t2 * v2)) / v3
-            } else shalf / v1
-        }
-        else -> t1 + (shalf - v1 * t1) / v2
+        !(t1 * v1 < shalf && t1 * v1 + t2 * v2 > shalf) -> t1 + (shalf - v1 * t1) / v2
+        t1 * v1 + t2 * v2 < shalf -> t1 + t2 + (shalf - (t1 * v1 + t2 * v2)) / v3
+        else -> shalf / v1
     }
 }
 
@@ -160,7 +157,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     return when {
         a + b <= c || a + c <= b || b + c <= a -> -1
         sqr(a) == sqr(b) + sqr(c) || sqr(b) == sqr(a) + sqr(c) || sqr(c) == sqr(b) + sqr(a) -> 1
-        (cosa > 0 && cosb > 0 && cosc > 0) -> 0
+        cosa > 0 && cosb > 0 && cosc > 0 -> 0
         else -> 2
     }
 }
@@ -177,7 +174,9 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     a > c && d > b -> b - a
     a > c && b > d && d > a -> d - a
     c > a && b > c && d > b -> b - c
-    b == c || a == b && d > b -> 0
+    (b == c && d > b) || (a == b && d > b) -> 0
+    b > d && a == d -> 0
+    a == b && a == c && a == d -> 0
     b > d && c > a -> d - c
     else -> -1
 }
