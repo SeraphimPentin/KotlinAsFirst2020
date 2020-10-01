@@ -93,14 +93,7 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double {
-    val shalf = (v1 * t1 + v2 * t2 + v3 * t3) / 2.0
-    return when {
-        !(t1 * v1 < shalf && t1 * v1 + t2 * v2 > shalf) -> t1 + (shalf - v1 * t1) / v2
-        t1 * v1 + t2 * v2 < shalf -> t1 + t2 + (shalf - (t1 * v1 + t2 * v2)) / v3
-        else -> shalf / v1
-    }
-}
+): Double = TODO()
 
 /**
  * Простая (2 балла)
@@ -171,10 +164,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
-    a > c && d > b -> b - a
+    a > c && d >= b -> b - a
     a > c && b > d && d > a -> d - a
     c > a && b > c && d > b -> b - c
     b > d && c > a -> d - c
+    a == c && b == d -> b - a
     c > b || a > d -> -1
     else -> 0
 }
