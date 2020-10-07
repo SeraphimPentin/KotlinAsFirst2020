@@ -91,9 +91,16 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = when {
-    n <= 2 -> 1
-    else -> fib(n - 2) + fib(n - 1)
+fun fib(n: Int): Int {
+    var x1 = 1
+    var x2: Int
+    var fibx = 1
+    for (i in 3..n) {
+        x2 = x1
+        x1 = fibx
+        fibx = x1 + x2
+    }
+    return fibx
 }
 
 /**
@@ -102,11 +109,11 @@ fun fib(n: Int): Int = when {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var x = 2
-    while (n % x != 0) {
-        x += 1
+    if (n % 2 == 0) return 2
+    for (i in 3..sqrt(n.toDouble()).toInt() step 2) {
+        if (n % i == 0) return i
     }
-    return x
+    return n
 }
 
 /**
@@ -175,12 +182,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for (i in m..n) {
-        if (i * i >= m && i * i <= n) return true
-    }
-    return false
-}
+fun squareBetweenExists(m: Int, n: Int): Boolean = sqr(sqrt(n.toDouble()).toInt()) >= m
 
 /**
  * Средняя (3 балла)
@@ -251,18 +253,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int {
-    var num = 1
-    var count = 1
-    while (count < n) {
-        num += 1
-        count = digitNumber(num * num)
-    }
-    var out = sqr(num)
-    for (m in 1..count - n)
-        out /= 10
-    return out % 10
-}
+fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
  * Сложная (5 баллов)
