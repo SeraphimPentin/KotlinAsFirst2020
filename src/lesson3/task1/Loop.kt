@@ -93,10 +93,9 @@ fun digitNumber(n: Int): Int {
  */
 fun fib(n: Int): Int {
     var x1 = 1
-    var x2: Int
     var fibx = 1
     for (i in 3..n) {
-        x2 = x1
+        val x2 = x1
         x1 = fibx
         fibx = x1 + x2
     }
