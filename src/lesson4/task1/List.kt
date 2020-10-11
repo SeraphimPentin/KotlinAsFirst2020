@@ -178,10 +178,10 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int {
-    var px = 0
-    var count = 1
     return if (p.isEmpty()) 0
     else {
+        var count = 1
+        var px = 0
         for (i in p.indices) {
             px += p[i] * count
             count *= x
@@ -200,15 +200,15 @@ fun polynom(p: List<Int>, x: Int): Int {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> {
-    return if (list.isEmpty()) list
+fun accumulate(list: MutableList<Int>): MutableList<Int> =
+    if (list.isEmpty()) list
     else {
-        for (i in list.indices) {
+        for (i in 1 until list.size) {
             list[i] = list[i] + list[i - 1]
         }
         list
     }
-}
+
 
 /**
  * Средняя (3 балла)
@@ -219,17 +219,19 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  */
 fun factorize(n: Int): List<Int> {
     val list = mutableListOf<Int>()
-    var number = 2
     var n1 = n
-    while (n1 > 1) {
-        if (n1 % number == 0) {
-            list.add(number)
-            n1 /= number
-        } else {
-            number++
-        }
+    while (n1 % 2 == 0) {
+        list.add(2)
     }
-    return list.sorted()
+    for (i in 3..sqrt(n.toDouble()).toInt() step 2) {
+        while (n1 % i == 0) {
+            list.add(i)
+            n1 /= i
+        }
+        if (i > n1) break
+    }
+    if (n1 > 1) list.add(n1)
+    return list
 }
 
 /**
@@ -251,11 +253,14 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     val list = mutableListOf<Int>()
     var x = n
-    while (x > 0) {
-        list.add(0, x % base)
-        x /= base
+    return if (x == 0) listOf(0)
+    else {
+        while (x > 0) {
+            list.add(0, x % base)
+            x /= base
+        }
+        return list
     }
-    return list
 }
 
 /**
