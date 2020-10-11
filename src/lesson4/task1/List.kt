@@ -178,8 +178,8 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int {
-    return if (p.isEmpty()) 0
+fun polynom(p: List<Int>, x: Int): Int =
+    if (p.isEmpty()) 0
     else {
         var count = 1
         var px = 0
@@ -189,7 +189,6 @@ fun polynom(p: List<Int>, x: Int): Int {
         }
         px
     }
-}
 
 /**
  * Средняя (3 балла)
@@ -278,19 +277,6 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String =
     convert(n, base).joinToString(separator = "")
     { "0123456789abcdefghijklmnopqrstuvwxyz"[it].toString() }
-
-
-//    val listnumber = convert(n, base)
-//    val rez = mutableListOf<Any>()
-
-//    for (i in listnumber.indices) {
-//        val x = listnumber[i]
-//        val string = "0123456789abcdefghijklmnopqrstuvwxyz"
-//        if (x == string[x])
-//    }
-//}
-//  = convert(n, base).joinToString(separator = "")
-//    {"0123456789abcdefghijklmnopqrstuvwxyz"[it].toString()}
 
 /**
  * Средняя (3 балла)
