@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.io.File.separator
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -223,7 +224,7 @@ fun factorize(n: Int): List<Int> {
     while (n1 % 2 == 0) {
         list.add(2)
     }
-    for (i in 3..sqrt(n.toDouble()).toInt() step 2) {
+    for (i in 3..sqrt(n1.toDouble()).toInt() step 2) {
         while (n1 % i == 0) {
             list.add(i)
             n1 /= i
@@ -274,7 +275,22 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String =
+    convert(n, base).joinToString(separator = "")
+    { "0123456789abcdefghijklmnopqrstuvwxyz"[it].toString() }
+
+
+//    val listnumber = convert(n, base)
+//    val rez = mutableListOf<Any>()
+
+//    for (i in listnumber.indices) {
+//        val x = listnumber[i]
+//        val string = "0123456789abcdefghijklmnopqrstuvwxyz"
+//        if (x == string[x])
+//    }
+//}
+//  = convert(n, base).joinToString(separator = "")
+//    {"0123456789abcdefghijklmnopqrstuvwxyz"[it].toString()}
 
 /**
  * Средняя (3 балла)
