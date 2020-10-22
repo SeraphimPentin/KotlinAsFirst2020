@@ -4,7 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import java.io.File.separator
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -144,7 +144,7 @@ fun mean(list: List<Double>): Double = if (list.isEmpty()) 0.0 else list.average
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    val value = list.sum() / list.size
+    val value = mean(list)
     return if (list.isEmpty()) list
     else {
         for (i in list.indices) {
@@ -222,6 +222,7 @@ fun factorize(n: Int): List<Int> {
     var n1 = n
     while (n1 % 2 == 0) {
         list.add(2)
+        n1 /= 2
     }
     for (i in 3..sqrt(n1.toDouble()).toInt() step 2) {
         while (n1 % i == 0) {
@@ -299,6 +300,18 @@ fun decimal(digits: List<Int>, base: Int): Int = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
+/**
+ * Сложная (4 балла)
+ *
+ * Перевести число, представленное цифровой строкой str,
+ * из системы счисления с основанием base в десятичную.
+ * Цифры более 9 представляются латинскими строчными буквами:
+ * 10 -> a, 11 -> b, 12 -> c и так далее.
+ * Например: str = "13c", base = 14 -> 250
+ *
+ * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
+ * (например, str.toInt(base)), запрещается.
+ */
 fun decimalFromString(str: String, base: Int): Int = TODO()
 
 /**
@@ -309,8 +322,36 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+/**
+ * Сложная (5 баллов)
+ *
+ * Перевести натуральное число n > 0 в римскую систему.
+ * Римские цифры: 1 = I, 4 = IV, 5 = V, 9 = IX, 10 = X, 40 = XL, 50 = L,
+ * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
+ * Например: 23 = XXIII, 44 = XLIV, 100 = C
+ */
+fun roman(n: Int): String {
+    val romanNumber = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val arabNumber = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val result = mutableListOf<String>()
+    var number = n
 
+    for (i in arabNumber.indices) {
+        while (number >= arabNumber[i]) {
+            number -= arabNumber[i]
+            result.add(romanNumber[i])
+        }
+    }
+    return result.joinToString(separator = "")
+}
+
+/**
+ * Очень сложная (7 баллов)
+ *
+ * Записать заданное натуральное число 1..999999 прописью по-русски.
+ * Например, 375 = "триста семьдесят пять",
+ * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
+ */
 /**
  * Очень сложная (7 баллов)
  *
