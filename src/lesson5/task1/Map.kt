@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -117,9 +118,9 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for (key in a.keys) {
-        if (key !in b) {
+        if ((key !in b) || (a[key] != b[key])) {
             return false
-        } else if (a[key] != b[key]) return false
+        }
     }
     return true
 }
@@ -193,7 +194,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
     val averageRes = mutableMapOf<String, Double>()
-    val count = mutableMapOf<String, Double>()
+    val count = mutableMapOf<String, Double>()//stockPrices.groupBy { }
 
     if (stockPrices.isNotEmpty()) {
         for ((good, cost) in stockPrices) {
@@ -227,17 +228,25 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var result = mutableMapOf<String, Pair<String, Double>>()
+    var result: String? = null
+    val MAX_VALUE = 2147483647.0
+    var min = MAX_VALUE
     for ((name, pair) in stuff) {
-        if (pair.first == kind) {
+        if (pair.first == kind && pair.second < min) {
+            min = pair.second
+            result = name
+        }
+    }
+    return result
+}
+/*result = mutableMapOf<String, Pair<String, Double>>()
             if (result.isEmpty()) result = mutableMapOf(kind to (name to pair.second))
             else if (result[kind]!!.second > pair.second) result = mutableMapOf(kind to (name to pair.second))
         }
     }
     if (result.isNotEmpty()) return result[kind]!!.first
-    return null
-}
-
+   return null
+*/
 
 /**
  * Средняя (3 балла)
@@ -248,13 +257,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    for (char in word) {
-        if (char !in chars) return false
-    }
-    return true
-}
-
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.containsAll(word.toLowerCase().toSet())
 
 /**
  * Средняя (4 балла)
@@ -270,15 +273,10 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val res = mutableMapOf<String, Int>()
-    val answer = mutableMapOf<String, Int>()
-
     for (char in list) {
         res[char] = list.count { it == char }
     }
-    for ((key, number) in res) {
-        if (number != 1) answer += (key to number)
-    }
-    return answer
+    return res.filter { it.value > 1 }
 }
 
 /**
