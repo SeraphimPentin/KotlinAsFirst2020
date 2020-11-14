@@ -194,20 +194,18 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
     val averageRes = mutableMapOf<String, Double>()
-    val count = mutableMapOf<String, Double>()//stockPrices.groupBy { }
+    val count = mutableMapOf<String, Int>()
 
-    if (stockPrices.isNotEmpty()) {
-        for ((good, cost) in stockPrices) {
-            if (averageRes[good] != null) {
-                averageRes[good] = averageRes[good]!! + cost
-                count[good] = count[good]!! + 1.0
-            } else {
-                averageRes[good] = cost
-                count[good] = 1.0
-            }
+    for ((good, cost) in stockPrices) {
+        if (averageRes[good] != null) {
+            averageRes[good] = averageRes[good]!! + cost
+            count[good] = count[good]!! + 1
+        } else {
+            averageRes[good] = cost
+            count[good] = 1
         }
-        for ((good, cost) in averageRes) averageRes[good] = cost / count[good]!!
     }
+    for ((good, cost) in averageRes) averageRes[good] = cost / count[good]!!
     return averageRes
 }
 
@@ -232,14 +230,9 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     var minCost: Double? = null
     for ((name, pair) in stuff) {
         if (pair.first == kind) {
-            if (result == null) {
+            if (result == null || pair.second < minCost!!) {
                 result = name
                 minCost = pair.second
-            } else {
-                if (pair.second < minCost!!) {
-                    minCost = pair.second
-                    result = name
-                }
             }
         }
     }
@@ -256,7 +249,8 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.containsAll(word.toLowerCase().toSet())
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+    chars.map { it.toLowerCase() }.toSet().containsAll(word.toLowerCase().toSet())
 
 /**
  * Средняя (4 балла)
@@ -271,11 +265,9 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = chars.containsAll(w
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val res = mutableMapOf<String, Int>()
-    for (char in list) {
-        res[char] = list.count { it == char }
-    }
-    return res.filter { it.value > 1 }
+    val result = mutableMapOf<String, Int>()
+    for (i in list) result[i] = result.getOrDefault(i, 0) + 1
+    return result.filter { it.value > 1 }
 }
 
 /**
