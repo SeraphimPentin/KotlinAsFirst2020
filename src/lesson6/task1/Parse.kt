@@ -108,7 +108,7 @@ fun dateDigitToStr(digital: String): String {
     )
 
     val parts = digital.split(".")
-    if (digital.matches(Regex("""\D+"""))) return ""
+    if (digital.contains(Regex("""[а-я]|[a-z]"""))) return ""
     if (parts.size != 3) return ""
     val day = parts[0].toInt()
     val month = parts[1].toInt()
