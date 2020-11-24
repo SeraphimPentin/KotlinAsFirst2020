@@ -108,8 +108,9 @@ fun dateDigitToStr(digital: String): String {
         7 to "июля", 8 to "августа", 9 to "сентября", 10 to "октября", 11 to "ноября", 12 to "декабря"
     )
 
+    if (!digital.contains(Regex("""\d*\.*"""))) return ""
+    if (digital.contains(Regex("""[а-яa-z]"""))) return ""
     val parts = digital.split(".")
-    if (digital.contains(Regex("""[а-я]|[a-z]"""))) return ""
     if (parts.size != 3) return ""
     val day = parts[0].toInt()
     val month = parts[1].toInt()
@@ -136,7 +137,6 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String {
     val regexPhone = Regex("""[- ]""").replace(phone, "")
-    println(regexPhone)
     return if (regexPhone.matches(Regex("""^\+?\d*\(?\d+\)?\d*"""))) {
         regexPhone.replace(Regex("""[()]"""), "")
     } else ""
@@ -182,17 +182,16 @@ fun bestHighJump(jumps: String): Int = TODO()
 fun plusMinus(expression: String): Int {
     val splitExp = expression.split(" ")
     var operator = 1
-    if (expression.matches(Regex("""(\d+\s[+-]\s)*\d+"""))) {
-        var res = 0
-        for (part in splitExp) {
-            when (part) {
-                "+" -> operator = 1
-                "-" -> operator = -1
-                else -> res += part.toInt() * operator
-            }
+    if (!expression.matches(Regex("""(\d+\s[+-]\s)*\d+"""))) throw IllegalArgumentException("Argument exception ")
+    var res = 0
+    for (part in splitExp) {
+        when (part) {
+            "+" -> operator = 1
+            "-" -> operator = -1
+            else -> res += part.toInt() * operator
         }
-        return res
-    } else throw IllegalArgumentException()
+    }
+    return res
 }
 
 /**
