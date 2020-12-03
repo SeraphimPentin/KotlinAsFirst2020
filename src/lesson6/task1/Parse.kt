@@ -108,7 +108,7 @@ fun dateDigitToStr(digital: String): String {
         7 to "июля", 8 to "августа", 9 to "сентября", 10 to "октября", 11 to "ноября", 12 to "декабря"
     )
 
-    if (!digital.contains(Regex("""\d{2}\.\d{2}\.\d{1,4}"""))) return ""
+    if ((!digital.contains(Regex("""\d{2}\.\d{2}\.\d{1,4}"""))) == true) return ""
     val parts = digital.split(".")
     if (parts.size != 3) return ""
     val day = parts[0].toInt()

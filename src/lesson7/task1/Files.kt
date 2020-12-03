@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import ru.spbstu.kotlin.typeclass.classes.Monoid.Companion.plus
 import java.io.File
 
 // Урок 7: работа с файлами
@@ -66,7 +67,7 @@ fun deleteMarked(inputName: String, outputName: String) {
     File(outputName).bufferedWriter().use {
         for (line in File(inputName).readLines()) {
             when {
-                line.startsWith("_") -> it.write("")
+                line.startsWith("_") -> {}
                 line.isEmpty() -> it.newLine()
                 else -> {
                     it.write(line)
@@ -106,8 +107,9 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
         for (line in File(inputName).bufferedReader().readLines()) {
             var indexKey = 0
             while (indexKey != line.length) {
-                if (line.indexOf(key, indexKey, true) == -1) break
-                indexKey = line.indexOf(key, indexKey, true) + 1
+                val star = line.indexOf(key, indexKey, true)
+                if (star == -1) break
+                indexKey = star + 1
                 result[key] = result[key]!! + 1
             }
         }
@@ -150,7 +152,25 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    var centerLine = 0
+    for (line in File(inputName).readLines()) {
+        if (line.length / 2 > centerLine)
+            centerLine = line.length / 2 + 1
+    }
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()) {
+            val str = line.trim()
+            val currentLineCenter = str.length / 2 + 1
+            if (centerLine != currentLineCenter) {
+                it.append(" ".repeat(centerLine - currentLineCenter))
+                it.write(str)
+                it.newLine()
+            } else {
+                it.write(str)
+                it.newLine()
+            }
+        }
+    }
 }
 
 /**
@@ -488,4 +508,6 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
+
+
 
