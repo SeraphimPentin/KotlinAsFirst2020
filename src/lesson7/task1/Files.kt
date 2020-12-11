@@ -66,7 +66,8 @@ fun deleteMarked(inputName: String, outputName: String) {
     File(outputName).bufferedWriter().use {
         for (line in File(inputName).readLines()) {
             when {
-                line.startsWith("_") -> {}
+                line.startsWith("_") -> {
+                }
                 line.isEmpty() -> it.newLine()
                 else -> {
                     it.write(line)
@@ -137,18 +138,19 @@ fun sibilants(inputName: String, outputName: String) {
  * 4) Число строк в выходном файле должно быть равно числу строк во входном (в т. ч. пустых)
  *
  */
+
 fun centerFile(inputName: String, outputName: String) {
-    var centerLine = 0
+    var maxLine = 0
     for (line in File(inputName).readLines()) {
-        if (line.length / 2 > centerLine)
-            centerLine = line.length / 2 + 1
+        if (line.length > maxLine)
+            maxLine = line.length
     }
     File(outputName).bufferedWriter().use {
         for (line in File(inputName).readLines()) {
             val str = line.trim()
-            val currentLineCenter = str.length / 2 + 1
-            if (centerLine != currentLineCenter) {
-                it.append(" ".repeat(centerLine - currentLineCenter))
+            val currentLineLength = str.length
+            if (currentLineLength != maxLine) {
+                it.append(" ".repeat((maxLine - currentLineLength) / 2))
                 it.write(str)
                 it.newLine()
             } else {
