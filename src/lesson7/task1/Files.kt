@@ -2,7 +2,6 @@
 
 package lesson7.task1
 
-import ru.spbstu.kotlin.typeclass.classes.Monoid.Companion.plus
 import java.io.File
 
 // Урок 7: работа с файлами
@@ -87,19 +86,6 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-//fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
-//    val result = mutableMapOf<String, Int>()
-//    for (i in substrings) result[i] = 0         не эффективное решение :)
-//    for (line in File(inputName).readLines()) {
-//        for (key in substrings) {
-//            for (i in 0..line.length - key.length) {
-//                if (line.substring(i, i + key.length).toLowerCase() == key.toLowerCase())
-//                    result[key] = result.getOrDefault(key, 0) + 1
-//            }
-//        }
-//    }
-//    return result
-//}
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val result = mutableMapOf<String, Int>()
     for (i in substrings) result[i] = 0
