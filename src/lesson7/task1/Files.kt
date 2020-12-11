@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import kotlin.math.max
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -141,24 +142,47 @@ fun sibilants(inputName: String, outputName: String) {
 
 fun centerFile(inputName: String, outputName: String) {
     var maxLine = 0
-    for (line in File(inputName).readLines()) {
-        if (line.length > maxLine)
-            maxLine = line.length
+    var lines = File(inputName).readLines()
+    lines = lines.map {
+        it.trim()
     }
+    for (line in lines) {
+        if (line.length > maxLine) maxLine = line.length
+    }
+
     File(outputName).bufferedWriter().use {
-        for (line in File(inputName).readLines()) {
-            val str = line.trim()
-            val currentLineLength = str.length
+        for (line in lines) {
+            val currentLineLength = line.length
             if (currentLineLength != maxLine) {
-                it.append(" ".repeat((maxLine - currentLineLength) / 2))
-                it.write(str.trim())
-                it.newLine()
-            } else {
-                it.write(str)
-                it.newLine()
+                it.append(" ".repeat(((maxLine - currentLineLength) / 2)))
             }
+            it.write(line)
+            it.newLine()
+
         }
     }
+
+
+//    for (line in lines) {
+//        if (line.length > maxLine)
+//            maxLine = line.trim().length
+//    }
+
+//    File(outputName).bufferedWriter().use {
+//        for (line in File(inputName).readLines()) {
+//            val str = line.trim()
+//            val currentLineLength = str.length
+//            if (currentLineLength != maxLine) {
+//                it.append(" ".repeat((maxLine - currentLineLength) / 2))
+//                it.write(str)
+//                it.newLine()
+//            } else {
+//                it.write(str)
+//                it.newLine()
+//            }
+//        }
+//    }
+
 }
 
 /**
