@@ -158,7 +158,6 @@ fun centerFile(inputName: String, outputName: String) {
             }
             it.write(line)
             it.newLine()
-
         }
     }
 }
