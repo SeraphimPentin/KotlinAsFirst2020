@@ -151,7 +151,7 @@ fun centerFile(inputName: String, outputName: String) {
             val currentLineLength = str.length
             if (currentLineLength != maxLine) {
                 it.append(" ".repeat((maxLine - currentLineLength) / 2))
-                it.write(str)
+                it.write(str.trim())
                 it.newLine()
             } else {
                 it.write(str)
