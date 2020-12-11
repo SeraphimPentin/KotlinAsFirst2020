@@ -4,6 +4,7 @@ package lesson8.task2
 
 import java.lang.IllegalArgumentException
 import java.util.*
+import kotlin.IllegalArgumentException
 import kotlin.math.abs
 
 /**
@@ -271,6 +272,7 @@ fun knightMoveNumber(start: Square, end: Square): Int = knightTrajectory(start, 
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
 fun knightTrajectory(start: Square, end: Square): List<Square> {
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException("Invalid notation")
     var chess = arrayOf(arrayOf<Square>())
     val queue = LinkedList<Square>()
     val path = mutableListOf<Square>()
