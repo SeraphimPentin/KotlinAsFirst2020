@@ -40,8 +40,11 @@ data class Square(val column: Int, val row: Int) {
  * Если нотация некорректна, бросить IllegalArgumentException
  */
 fun square(notation: String): Square {
-    return try {
-        Square(notation[0].toInt() - 96, notation[1].toString().toInt())
+    if (notation.length != 2) throw java.lang.IllegalArgumentException("Invalid notation")
+    try {
+        val square = Square(notation[0].toInt() - 96, notation[1].toString().toInt())
+        if (!square.inside()) throw IllegalArgumentException("Invalid notation")
+        return square
     } catch (e: Exception) {
         throw IllegalArgumentException("Invalid notation")
     }
