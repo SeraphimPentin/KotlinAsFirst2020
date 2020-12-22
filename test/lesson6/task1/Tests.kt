@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class Tests {
     @Test
@@ -156,4 +157,11 @@ class Tests {
         assertThrows(IllegalStateException::class.java) { computeDeviceCells(20, ">>>>>>>>>>>>>", 12) }
     }
 
+    @Test
+    fun search() {
+        assertEquals(8, search("C:\\Users\\Huawei\\Desktop\\DOT.txt"))
+        assertEquals(13, search("C:\\Users\\Huawei\\Desktop\\DOT2.txt"))
+        assertEquals(10, search("C:\\Users\\Huawei\\Desktop\\DOT3.txt"))
+
+    }
 }
