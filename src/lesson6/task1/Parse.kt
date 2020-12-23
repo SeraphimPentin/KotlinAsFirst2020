@@ -5,8 +5,6 @@ package lesson6.task1
 import lesson2.task2.daysInMonth
 import java.lang.IllegalArgumentException
 import java.io.File
-import javax.xml.stream.FactoryConfigurationError
-import kotlin.math.abs
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -285,8 +283,6 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TO
 Сквозь препятствия камера видеть не может (похоже на ход шахматного ферзя).
 
 Необходимо написать функцию и тесты к ней.
-Сделать это можно прямо внутри своего проекта KotlinAsFirst в любом уроке, и,
-когда будет готово — прислать мне ссылку на Git репозиторий.
 
 Банальный пример
 xxx..
