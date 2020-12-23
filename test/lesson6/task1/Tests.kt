@@ -159,9 +159,9 @@ class Tests {
 
     @Test
     fun search() {
-        assertEquals(8, search("C:\\Users\\Huawei\\Desktop\\DOT.txt"))
-        assertEquals(13, search("C:\\Users\\Huawei\\Desktop\\DOT2.txt"))
-        assertEquals(10, search("C:\\Users\\Huawei\\Desktop\\DOT3.txt"))
+        assertEquals(8, search("input/DOT.txt"))
+        assertEquals(13, search("input/DOT2.txt"))
+        assertEquals(10, search("input/DOT3.txt"))
 
     }
 }
