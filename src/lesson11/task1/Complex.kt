@@ -80,9 +80,10 @@ fun Complex(s: String): Complex {
         s.matches(Regex("""^-?\d+(\.\d+)?i$""")) ->
             im = s.substring(0, s.indexOf('i')).toDouble()
         s.matches(Regex("""^-?\d+(\.\d+)?[+-]\d+(\.\d+)?i$""")) -> {
+            val signRe = if (s.indexOf("-") == 0) -1.0 else 1.0
             val spl = s.split(Regex("""[+-]""")).filter { it.isNotEmpty() }
             val sign = if (s.contains(Regex("\\+"))) 1.0 else -1.0
-            re = spl[0].toDouble()
+            re = spl[0].toDouble() * signRe
             im = spl[1].substring(0, spl[1].indexOf('i')).toDouble() * sign
         }
         else -> throw IllegalArgumentException("Invalid format")
