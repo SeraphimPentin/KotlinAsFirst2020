@@ -14,6 +14,8 @@ internal class PhoneBookTest {
         assertTrue(book.addHuman("Иванов Петр"))
         assertTrue(book.addHuman("Васильев Дмитрий"))
         assertFalse(book.addHuman("Иванов Петр"))
+        assertTrue(book.addHuman("Сидоров Илья"))
+        assertFalse(book.addHuman("Сидоров Илья"))
     }
 
     @Test
@@ -37,6 +39,8 @@ internal class PhoneBookTest {
         assertFalse(book.addPhone("Иванов Петр", "+79211234567"))
         assertFalse(book.addPhone("Васильев Дмитрий", "+79211234567"))
         assertTrue(book.addPhone("Васильев Дмитрий", "+79217654321"))
+        assertFalse(book.addPhone("Иванов Влад", "+79211670564"))
+        assertFalse(book.addPhone("Васильев Дмитрий", "+79217654321"))
     }
 
     @Test
@@ -61,7 +65,10 @@ internal class PhoneBookTest {
         assertTrue(book.addHuman("Васильев Дмитрий"))
         assertTrue(book.addPhone("Иванов Петр", "+79211234567"))
         assertTrue(book.addPhone("Иванов Петр", "+78121234567"))
+        assertTrue(book.addPhone("Васильев Дмитрий", "+78121234333"))
         assertEquals(setOf("+79211234567", "+78121234567"), book.phones("Иванов Петр"))
+        assertEquals(setOf("+78121234333"), book.phones("Васильев Дмитрий"))
+        assertEquals(emptySet<String>(), book.phones("Дмитриев Симка"))
     }
 
     @Test
@@ -75,7 +82,9 @@ internal class PhoneBookTest {
         assertTrue(book.addPhone("Васильев Дмитрий", "+79217654321"))
         assertEquals("Васильев Дмитрий", book.humanByPhone("+79217654321"))
         assertEquals("Иванов Петр", book.humanByPhone("+78121234567"))
+        assertEquals("Иванов Петр", book.humanByPhone("+79211234567"))
         assertNull(book.humanByPhone("+78127654321"))
+        assertNull(book.humanByPhone("+78186599"))
     }
 
     @Test

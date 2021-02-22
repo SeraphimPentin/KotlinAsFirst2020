@@ -24,7 +24,17 @@ class PhoneBook {
      * и false, если человек с таким именем уже был в телефонной книге
      * (во втором случае телефонная книга не должна меняться).
      */
-    fun addHuman(name: String): Boolean = TODO()
+
+    private var map = mutableMapOf<String, MutableList<String>>()
+
+    fun addHuman(name: String): Boolean {
+        val r = map.containsKey(name)
+        return if (!r) {
+            map[name] = mutableListOf()
+            true
+        } else false
+    }
+
 
     /**
      * Убрать человека.
@@ -32,7 +42,13 @@ class PhoneBook {
      * и false, если человек с таким именем отсутствовал в телефонной книге
      * (во втором случае телефонная книга не должна меняться).
      */
-    fun removeHuman(name: String): Boolean = TODO()
+    fun removeHuman(name: String): Boolean {
+        val r = map.containsKey(name)
+        return if (r) {
+            map.remove(name)
+            true
+        } else false
+    }
 
     /**
      * Добавить номер телефона.
@@ -41,7 +57,22 @@ class PhoneBook {
      * либо у него уже был такой номер телефона,
      * либо такой номер телефона зарегистрирован за другим человеком.
      */
-    fun addPhone(name: String, phone: String): Boolean = TODO()
+    fun addPhone(name: String, phone: String): Boolean {
+        if (!map.containsKey(name)) {
+            return false
+        } else {
+            if (map[name]?.contains(phone)!!) return false
+            else {
+                for (currentName in map.keys) {
+                    if (currentName != name) {
+                        if (map[currentName]?.contains(phone)!!) return false
+                    }
+                }
+            }
+        }
+        map[name]?.add(phone)
+        return true
+    }
 
     /**
      * Убрать номер телефона.
@@ -49,24 +80,58 @@ class PhoneBook {
      * и false, если человек с таким именем отсутствовал в телефонной книге
      * либо у него не было такого номера телефона.
      */
-    fun removePhone(name: String, phone: String): Boolean = TODO()
+    fun removePhone(name: String, phone: String): Boolean {
+        if (!map.containsKey(name)) return false
+        else {
+            if (!map[name]?.contains(phone)!!) return false
+        }
+        map[name]?.remove(phone)
+        return true
+    }
 
     /**
      * Вернуть все номера телефона заданного человека.
      * Если этого человека нет в книге, вернуть пустой список
      */
-    fun phones(name: String): Set<String> = TODO()
+    fun phones(name: String): Set<String> {
+        val setNum = mutableSetOf<String>()
+        if (!map.containsKey(name)) return emptySet()
+        else {
+            val values = map[name]
+            for (num in values?.indices!!)
+                setNum += values[num]
+        }
+        return setNum
+    }
 
     /**
      * Вернуть имя человека по заданному номеру телефона.
      * Если такого номера нет в книге, вернуть null.
      */
-    fun humanByPhone(phone: String): String? = TODO()
+    fun humanByPhone(phone: String): String? {
+        var name: String? = null
+        for (key in map.keys) {
+            if (map[key]?.contains(phone) != false) name = key
+        }
+        return name
+    }
 
     /**
      * Две телефонные книги равны, если в них хранится одинаковый набор людей,
      * и каждому человеку соответствует одинаковый набор телефонов.
      * Порядок людей / порядок телефонов в книге не должен иметь значения.
      */
-    override fun equals(other: Any?): Boolean = TODO()
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PhoneBook) return false
+        if (this.hashCode() != other.hashCode()) return false
+        if (map.size == other.map.size) {
+            for (name in map.keys) {
+                if (other.map.containsKey(name) && other.map[name] == map[name]) return true
+            }
+        }
+        return false
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
 }

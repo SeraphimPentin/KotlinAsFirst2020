@@ -3,6 +3,7 @@ package lesson8.task1
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import java.lang.IllegalArgumentException
 import java.lang.Math.ulp
 import kotlin.math.PI
 import kotlin.math.abs
@@ -161,6 +162,7 @@ class Tests {
         assertApproxEquals(Segment(p3, p4), diameter(p1, p2, p3, p4))
         assertApproxEquals(Segment(p2, p4), diameter(p1, p2, p4))
         assertApproxEquals(Segment(p1, p4), diameter(p1, p4))
+        assertThrows(IllegalArgumentException::class.java) { diameter(p1) }
     }
 
     @Test

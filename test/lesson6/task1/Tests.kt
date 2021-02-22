@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.lang.NumberFormatException
 
 class Tests {
     @Test
@@ -155,13 +156,5 @@ class Tests {
         assertThrows(IllegalArgumentException::class.java) { computeDeviceCells(10, "===", 3) }
         assertThrows(IllegalArgumentException::class.java) { computeDeviceCells(10, "+>+>[+>", 3) }
         assertThrows(IllegalStateException::class.java) { computeDeviceCells(20, ">>>>>>>>>>>>>", 12) }
-    }
-
-    @Test
-    fun search() {
-        assertEquals(8, search("input/DOT.txt"))
-        assertEquals(13, search("input/DOT2.txt"))
-        assertEquals(10, search("input/DOT3.txt"))
-
     }
 }

@@ -40,12 +40,12 @@ data class Square(val column: Int, val row: Int) {
  * Если нотация некорректна, бросить IllegalArgumentException
  */
 fun square(notation: String): Square {
-    if (notation.length != 2) throw java.lang.IllegalArgumentException("Invalid notation")
+    if (notation.length != 2) throw IllegalArgumentException("Invalid notation")
     try {
         val square = Square(notation[0].toInt() - 96, notation[1].toString().toInt())
         if (!square.inside()) throw IllegalArgumentException("Invalid notation")
         return square
-    } catch (e: Exception) {
+    } catch (e: IllegalArgumentException) {
         throw IllegalArgumentException("Invalid notation")
     }
 }
@@ -204,7 +204,7 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
  * Король может последовательно пройти через клетки (4, 2) и (5, 2) к клетке (6, 3).
  */
 fun kingMoveNumber(start: Square, end: Square): Int {
-    if (!start.inside() || !end.inside()) throw java.lang.IllegalArgumentException("Invalid square")
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException("Invalid square")
     return if (abs(start.column - end.column) < abs(start.row - end.row)) {
         abs(start.column - end.column) + abs(start.row - end.row) - abs(start.column - end.column)
     } else {
