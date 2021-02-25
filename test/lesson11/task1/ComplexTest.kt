@@ -17,6 +17,7 @@ internal class ComplexTest {
     fun plus() {
         assertApproxEquals(Complex("4-2i"), Complex("1+2i") + Complex("3-4i"), 1e-10)
         assertApproxEquals(Complex("3-2i"), Complex("2+5i") + Complex("1-7i"), 1e-10)
+        println(Complex("3-2i"))
 
     }
 
@@ -55,15 +56,3 @@ internal class ComplexTest {
         assertApproxEquals(Complex(1.0, 0.0), Complex(1.0), 1e-12)
     }
 }
-//str.matches(Regex("""^-?\d+(\.\d+)?$""")) -> re = str.toDouble()
-//str.matches(Regex("""^-?\d+(\.\d+)?i$""")) ->
-//im = str.substring(0, str.indexOf('i')).toDouble()
-//str.matches(Regex("""^-?\d+(\.\d+)?[+-]\d+(\.\d+)?i$""")) -> {
-//    val spl = str.split(Regex("""[+-]"""))
-//    val signRe = if (spl.size > 2) -1.0 else 1.0
-//    val signIm = if (str.contains(Regex("\\+"))) 1.0 else -1.0
-//    spl.filter { it.isNotEmpty() }
-//    re = spl[0].toDouble()
-//    im = spl[1].substring(0, spl[1].indexOf('i')).toDouble() * signIm
-//}
-//else -> throw IllegalArgumentException("Invalid format")

@@ -31,7 +31,6 @@ class FixedPointNumber : Comparable<FixedPointNumber> {
      * Внимание: этот или другой конструктор можно сделать основным
      */
     constructor(s: String) {
-        TODO()
     }
 
     /**

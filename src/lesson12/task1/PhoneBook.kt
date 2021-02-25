@@ -25,7 +25,7 @@ class PhoneBook {
      * (во втором случае телефонная книга не должна меняться).
      */
 
-    private var map = mutableMapOf<String, MutableList<String>>()
+    private val map = mutableMapOf<String, MutableList<String>>()
 
     fun addHuman(name: String): Boolean {
         val r = map.containsKey(name)
@@ -58,15 +58,15 @@ class PhoneBook {
      * либо такой номер телефона зарегистрирован за другим человеком.
      */
     fun addPhone(name: String, phone: String): Boolean {
-        if (!map.containsKey(name)) {
+        val r = map.containsKey(name)
+        if (!r) {
             return false
         } else {
-            if (map[name]?.contains(phone)!!) return false
+            if (map[name]?.contains(phone) == true) return false
             else {
                 for (currentName in map.keys) {
-                    if (currentName != name) {
-                        if (map[currentName]?.contains(phone)!!) return false
-                    }
+                    val cn = map[currentName] ?: return false
+                    if (cn.contains(phone)) return false
                 }
             }
         }
@@ -83,7 +83,7 @@ class PhoneBook {
     fun removePhone(name: String, phone: String): Boolean {
         if (!map.containsKey(name)) return false
         else {
-            if (!map[name]?.contains(phone)!!) return false
+            if (map[name]?.contains(phone) == false) return false
         }
         map[name]?.remove(phone)
         return true
@@ -124,11 +124,8 @@ class PhoneBook {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PhoneBook) return false
-        if (this.hashCode() != other.hashCode()) return false
-        if (map.size == other.map.size) {
-            for (name in map.keys) {
-                if (other.map.containsKey(name) && other.map[name] == map[name]) return true
-            }
+        for (name in map.keys) {
+            if (other.map.containsKey(name) && other.map[name] == map[name]) return true
         }
         return false
     }

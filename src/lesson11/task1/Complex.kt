@@ -13,7 +13,7 @@ import java.lang.IllegalArgumentException
  *
  * Аргументы конструктора -- вещественная и мнимая часть числа.
  */
-class Complex(var re: Double, var im: Double) {
+class Complex(val re: Double, val im: Double) {
 
     /**
      * Конструктор из вещественного числа
@@ -59,7 +59,7 @@ class Complex(var re: Double, var im: Double) {
     /**
      * Преобразование в строку
      */
-    override fun toString(): String = "$re${im}i"
+    override fun toString(): String = "$re ${im}i"
 
     override fun hashCode(): Int {
         var result = re.hashCode()
@@ -75,16 +75,14 @@ class Complex(var re: Double, var im: Double) {
 fun Complex(s: String): Complex {
     var re = 0.0
     var im = 0.0
+    val pattern = Regex("""^(-?\d+(\.\d+)?)([+-]\d+(\.\d+)?)i$""")
     when {
         s.matches(Regex("""^-?\d+(\.\d+)?$""")) -> re = s.toDouble()
         s.matches(Regex("""^-?\d+(\.\d+)?i$""")) ->
-            im = s.substring(0, s.indexOf('i')).toDouble()
-        s.matches(Regex("""^-?\d+(\.\d+)?[+-]\d+(\.\d+)?i$""")) -> {
-            val signRe = if (s.indexOf("-") == 0) -1.0 else 1.0
-            val spl = s.split(Regex("""[+-]""")).filter { it.isNotEmpty() }
-            val sign = if (s.contains(Regex("\\+"))) 1.0 else -1.0
-            re = spl[0].toDouble() * signRe
-            im = spl[1].substring(0, spl[1].indexOf('i')).toDouble() * sign
+            im = s.substring(0, s.lastIndex).toDouble()
+        s.matches(pattern) -> {
+            re = pattern.matchEntire(s)?.groups?.get(1)?.value?.toDouble() ?: 0.0
+            im = pattern.matchEntire(s)?.groups?.get(3)?.value?.toDouble() ?: 0.0
         }
         else -> throw IllegalArgumentException("Invalid format")
     }
