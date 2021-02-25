@@ -25,12 +25,12 @@ class PhoneBook {
      * (во втором случае телефонная книга не должна меняться).
      */
 
-    private val map = mutableMapOf<String, MutableList<String>>()
+    private val map = mutableMapOf<String, MutableSet<String>>()
 
     fun addHuman(name: String): Boolean {
         val r = map.containsKey(name)
         return if (!r) {
-            map[name] = mutableListOf()
+            map[name] = mutableSetOf()
             true
         } else false
     }
@@ -94,14 +94,8 @@ class PhoneBook {
      * Если этого человека нет в книге, вернуть пустой список
      */
     fun phones(name: String): Set<String> {
-        val setNum = mutableSetOf<String>()
         if (!map.containsKey(name)) return emptySet()
-        else {
-            val values = map[name]
-            for (num in values?.indices!!)
-                setNum += values[num]
-        }
-        return setNum
+        return map[name]!!.toSet()
     }
 
     /**
@@ -111,7 +105,7 @@ class PhoneBook {
     fun humanByPhone(phone: String): String? {
         var name: String? = null
         for (key in map.keys) {
-            if (map[key]?.contains(phone) != false) name = key
+            if (map[key]?.contains(phone) == true) name = key
         }
         return name
     }
@@ -124,11 +118,9 @@ class PhoneBook {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PhoneBook) return false
-        for (name in map.keys) {
-            if (other.map.containsKey(name) && other.map[name] == map[name]) return true
-        }
+        if (map == other.map) return true
         return false
     }
 
-    override fun hashCode(): Int = javaClass.hashCode()
+    override fun hashCode(): Int = map.hashCode()
 }
