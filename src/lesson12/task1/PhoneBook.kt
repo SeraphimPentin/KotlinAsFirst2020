@@ -2,6 +2,9 @@
 
 package lesson12.task1
 
+import com.sun.nio.sctp.SctpChannel
+import kotlinx.html.MAP
+
 /**
  * Класс "Телефонная книга".
  *
@@ -35,7 +38,6 @@ class PhoneBook {
         } else false
     }
 
-
     /**
      * Убрать человека.
      * Возвращает true, если человек был успешно удалён,
@@ -58,19 +60,12 @@ class PhoneBook {
      * либо такой номер телефона зарегистрирован за другим человеком.
      */
     fun addPhone(name: String, phone: String): Boolean {
-        val r = map.containsKey(name)
-        if (!r) {
-            return false
-        } else {
-            if (map[name]?.contains(phone) == true) return false
-            else {
-                for (currentName in map.keys) {
-                    val cn = map[currentName] ?: return false
-                    if (cn.contains(phone)) return false
-                }
-            }
+        val num = map[name] ?: return false
+        for (currentName in map.keys) {
+            val cn = map[currentName] ?: return false
+            if (cn.contains(phone)) return false
         }
-        map[name]?.add(phone)
+        num.add(phone)
         return true
     }
 
@@ -81,11 +76,9 @@ class PhoneBook {
      * либо у него не было такого номера телефона.
      */
     fun removePhone(name: String, phone: String): Boolean {
-        if (!map.containsKey(name)) return false
-        else {
-            if (map[name]?.contains(phone) == false) return false
-        }
-        map[name]?.remove(phone)
+        val num = map[name] ?: return false
+        if (!num.contains(phone)) return false
+        num.remove(phone)
         return true
     }
 
@@ -94,8 +87,8 @@ class PhoneBook {
      * Если этого человека нет в книге, вернуть пустой список
      */
     fun phones(name: String): Set<String> {
-        if (!map.containsKey(name)) return emptySet()
-        return map[name]!!.toSet()
+        val phones = map[name] ?: return emptySet()
+        return phones.toSet()
     }
 
     /**
@@ -103,11 +96,10 @@ class PhoneBook {
      * Если такого номера нет в книге, вернуть null.
      */
     fun humanByPhone(phone: String): String? {
-        var name: String? = null
         for (key in map.keys) {
-            if (map[key]?.contains(phone) == true) name = key
+            if (map[key]?.contains(phone) == true) return key
         }
-        return name
+        return null
     }
 
     /**
@@ -118,8 +110,7 @@ class PhoneBook {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is PhoneBook) return false
-        if (map == other.map) return true
-        return false
+        return map == other.map
     }
 
     override fun hashCode(): Int = map.hashCode()

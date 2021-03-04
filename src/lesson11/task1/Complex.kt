@@ -3,6 +3,7 @@
 package lesson11.task1
 
 import java.lang.IllegalArgumentException
+import kotlin.math.abs
 
 /**
  * Класс "комплексное число".
@@ -13,7 +14,7 @@ import java.lang.IllegalArgumentException
  *
  * Аргументы конструктора -- вещественная и мнимая часть числа.
  */
-class Complex(val re: Double, val im: Double) {
+class Complex(val re: Double, var im: Double) {
 
     /**
      * Конструктор из вещественного числа
@@ -59,7 +60,11 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Преобразование в строку
      */
-    override fun toString(): String = "$re ${im}i"
+    override fun toString(): String {
+        val sign = if (im < 0) '-' else '+'
+        im = abs(im)
+        return "$re$sign${im}i"
+    }
 
     override fun hashCode(): Int {
         var result = re.hashCode()

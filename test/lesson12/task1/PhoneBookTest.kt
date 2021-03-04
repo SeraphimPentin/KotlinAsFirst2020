@@ -66,8 +66,9 @@ internal class PhoneBookTest {
         assertTrue(book.addPhone("Иванов Петр", "+79211234567"))
         assertTrue(book.addPhone("Иванов Петр", "+78121234567"))
         assertTrue(book.addPhone("Васильев Дмитрий", "+78121234333"))
+        assertTrue(book.addPhone("Васильев Дмитрий", "+78121234222"))
         assertEquals(setOf("+79211234567", "+78121234567"), book.phones("Иванов Петр"))
-        assertEquals(setOf("+78121234333"), book.phones("Васильев Дмитрий"))
+        assertEquals(setOf("+78121234333", "+78121234222"), book.phones("Васильев Дмитрий"))
         assertEquals(emptySet<String>(), book.phones("Дмитриев Симка"))
     }
 
