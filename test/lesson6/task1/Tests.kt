@@ -1,5 +1,6 @@
 package lesson6.task1
 
+import lesson5.task1.propagateHandshakes
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Tag
@@ -88,6 +89,7 @@ class Tests {
     @Test
     @Tag("6")
     fun bestHighJump() {
+        println("220 + 224 %+ 228 %- 230 + 232 %%- 234 %".split(" "))
         assertEquals(226, bestHighJump("226 +"))
         assertEquals(-1, bestHighJump("???"))
         assertEquals(230, bestHighJump("220 + 224 %+ 228 %- 230 + 232 %%- 234 %"))

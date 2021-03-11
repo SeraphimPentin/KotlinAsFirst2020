@@ -2,9 +2,6 @@
 
 package lesson12.task1
 
-import com.sun.nio.sctp.SctpChannel
-import kotlinx.html.MAP
-
 /**
  * Класс "Телефонная книга".
  *
