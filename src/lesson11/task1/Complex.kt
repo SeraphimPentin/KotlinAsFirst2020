@@ -14,7 +14,7 @@ import kotlin.math.abs
  *
  * Аргументы конструктора -- вещественная и мнимая часть числа.
  */
-class Complex(val re: Double, var im: Double) {
+class Complex(val re: Double, val im: Double) {
 
     /**
      * Конструктор из вещественного числа
@@ -62,8 +62,8 @@ class Complex(val re: Double, var im: Double) {
      */
     override fun toString(): String {
         val sign = if (im < 0) '-' else '+'
-        im = abs(im)
-        return "$re$sign${im}i"
+        val im2 = im
+        return "$re$sign${abs(im2)}i"
     }
 
     override fun hashCode(): Int {

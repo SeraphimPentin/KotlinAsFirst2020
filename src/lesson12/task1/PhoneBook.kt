@@ -58,9 +58,8 @@ class PhoneBook {
      */
     fun addPhone(name: String, phone: String): Boolean {
         val num = map[name] ?: return false
-        for (currentName in map.keys) {
-            val cn = map[currentName] ?: return false
-            if (cn.contains(phone)) return false
+        for (value in map.values) {
+            if (value.contains(phone)) return false
         }
         num.add(phone)
         return true
@@ -83,18 +82,15 @@ class PhoneBook {
      * Вернуть все номера телефона заданного человека.
      * Если этого человека нет в книге, вернуть пустой список
      */
-    fun phones(name: String): Set<String> {
-        val phones = map[name] ?: return emptySet()
-        return phones.toSet()
-    }
+    fun phones(name: String): Set<String> = map[name] ?: emptySet()
 
     /**
      * Вернуть имя человека по заданному номеру телефона.
      * Если такого номера нет в книге, вернуть null.
      */
     fun humanByPhone(phone: String): String? {
-        for (key in map.keys) {
-            if (map[key]?.contains(phone) == true) return key
+        for ((key, value) in map) {
+            if (value.contains(phone)) return key
         }
         return null
     }
