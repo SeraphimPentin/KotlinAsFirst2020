@@ -57,10 +57,8 @@ class PhoneBook {
      * либо такой номер телефона зарегистрирован за другим человеком.
      */
     fun addPhone(name: String, phone: String): Boolean {
-        val num = map[name] ?: return false
-        for (value in map.values) {
-            if (value.contains(phone)) return false
-        }
+        val num = map[name]
+        if (num == null || humanByPhone(phone) != null) return false
         num.add(phone)
         return true
     }

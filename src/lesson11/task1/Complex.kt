@@ -60,10 +60,10 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Преобразование в строку
      */
-    override fun toString(): String {
-        val sign = if (im < 0) '-' else '+'
-        val im2 = im
-        return "$re$sign${abs(im2)}i"
+    override fun toString(): String = when {
+        im < 0 -> "$re${im}i"
+        im > 0 -> "$re+${im}i"
+        else -> "$re"
     }
 
     override fun hashCode(): Int {

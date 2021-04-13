@@ -1,12 +1,9 @@
 package lesson6.task1
 
-import lesson5.task1.propagateHandshakes
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import java.io.File
-import java.lang.NumberFormatException
 
 class Tests {
     @Test

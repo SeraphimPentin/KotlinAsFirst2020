@@ -3,7 +3,6 @@
 package lesson7.task1
 
 import java.io.File
-import kotlin.math.max
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
